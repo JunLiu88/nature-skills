@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nature-Style Scientific Figure Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #060916;
+  --bg-card:    #0b1228;
+  --bg-card-h:  #0f1a38;
+  --bdr:        #182040;
+  --bdr-bright: #2a3d6e;
+  --acc:        #3775BA;
+  --acc2:       #42949E;
+  --acc-glow:   rgba(55,117,186,.25);
+  --txt:        #dde3f3;
+  --txt-m:      #6b7a9e;
+  --txt-d:      #2e3e60;
+  --c-gen:  #3775BA; --c-cli: #B64342;
+  --c-ml:   #42949E; --c-dst: #9A4D8E; --c-mlt: #E07B39;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── dot-grid background ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:radial-gradient(circle at 1px 1px,rgba(55,117,186,.07) 1px,transparent 0);
+  background-size:36px 36px;
+  pointer-events:none;z-index:0;
+}
+
+/* ── ambient orbs ── */
+.orb{
+  position:fixed;border-radius:50%;
+  filter:blur(90px);pointer-events:none;z-index:0;
+}
+.orb1{
+  width:700px;height:700px;top:-200px;left:-200px;
+  background:radial-gradient(circle,rgba(55,117,186,.1) 0%,transparent 68%);
+  animation:drift1 24s ease-in-out infinite alternate;
+}
+.orb2{
+  width:500px;height:500px;bottom:5%;right:-150px;
+  background:radial-gradient(circle,rgba(66,148,158,.09) 0%,transparent 68%);
+  animation:drift1 30s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift1{from{transform:translate(0,0)}to{transform:translate(80px,50px)}}
+
+/* ── scroll progress ── */
+#prog{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:200;
+  background:linear-gradient(90deg,var(--acc),var(--acc2));
+  transition:width .08s linear;
+}
+
+/* ── wrapper ── */
+.W{
+  position:relative;z-index:1;
+  max-width:1440px;margin:0 auto;padding:0 48px;
+}
+
+/* ═══════════════════════════ HERO ═══════════════════════════ */
+.hero{
+  padding:110px 0 70px;
+  text-align:center;
+  position:relative;
+}
+
+/* scan-line sweep */
+.hero::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,
+    transparent 0%,rgba(55,117,186,.04) 45%,
+    rgba(55,117,186,.08) 50%,rgba(55,117,186,.04) 55%,transparent 100%);
+  background-size:100% 200%;
+  animation:scan 8s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes scan{
+  0%,100%{background-position:0 -100%}
+  50%{background-position:0 200%}
+}
+
+.hero-eye{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:28px;
+  opacity:0;animation:fadeUp .7s ease forwards .15s;
+}
+
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(54px,7.5vw,100px);
+  font-weight:300;line-height:1.03;letter-spacing:-.025em;
+  color:var(--txt);margin-bottom:8px;
+  opacity:0;animation:fadeUp .85s ease forwards .3s;
+}
+.hero-title em{font-style:italic;color:var(--acc)}
+
+.hero-rule{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc),transparent);
+  margin:22px auto;
+  opacity:0;animation:fadeUp .7s ease forwards .42s;
+}
+
+.hero-sub{
+  font-size:16px;font-weight:300;
+  color:var(--txt-m);max-width:580px;
+  margin:0 auto 52px;line-height:1.75;
+  opacity:0;animation:fadeUp .85s ease forwards .52s;
+}
+.hero-sub em{color:var(--txt);font-style:normal}
+
+.hero-chips{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .85s ease forwards .66s;
+}
+.chip{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(55,117,186,.07);
+  border:1px solid rgba(55,117,186,.22);
+  border-radius:100px;padding:9px 20px;
+  font-family:'IBM Plex Mono',monospace;
+}
+.chip-n{font-size:20px;font-weight:500;color:var(--acc)}
+.chip-l{font-size:11px;color:var(--txt-m);letter-spacing:.04em}
+
+.hero-stem{
+  width:1px;height:56px;
+  background:linear-gradient(to bottom,var(--acc),transparent);
+  margin:48px auto 0;
+  opacity:0;animation:fadeUp 1s ease forwards .8s;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ═══════════════════════════ FILTER ═════════════════════════ */
+.filter-wrap{
+  position:sticky;top:0;z-index:50;
+  background:linear-gradient(to bottom,var(--bg) 70%,transparent);
+  padding:44px 0 30px;
+}
+.filter-bar{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+}
+.fb{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 18px;border-radius:3px;cursor:pointer;
+  border:1px solid var(--bdr);
+  background:transparent;color:var(--txt-m);
+  transition:all .18s ease;
+}
+.fb:hover{border-color:var(--acc);color:var(--txt)}
+.fb.on{
+  color:#fff;
+  background:rgba(55,117,186,.16);
+  border-color:var(--acc);
+  box-shadow:0 0 12px var(--acc-glow);
+}
+.fb[data-c="gen"].on  {background:rgba(55,117,186,.18);border-color:var(--c-gen);box-shadow:0 0 10px rgba(55,117,186,.3)}
+.fb[data-c="cli"].on  {background:rgba(182,67,66,.18);border-color:var(--c-cli);color:#e9a6a1;box-shadow:0 0 10px rgba(182,67,66,.25)}
+.fb[data-c="ml"].on   {background:rgba(66,148,158,.18);border-color:var(--c-ml);color:#8bcfcf;box-shadow:0 0 10px rgba(66,148,158,.25)}
+.fb[data-c="dst"].on  {background:rgba(154,77,142,.18);border-color:var(--c-dst);color:#ea84dd;box-shadow:0 0 10px rgba(154,77,142,.25)}
+.fb[data-c="mlt"].on  {background:rgba(224,123,57,.18);border-color:var(--c-mlt);color:#ffd700;box-shadow:0 0 10px rgba(224,123,57,.25)}
+
+/* ═══════════════════════════ DIVIDER ════════════════════════ */
+.divider{
+  display:flex;align-items:center;gap:16px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--txt-d);margin-bottom:36px;
+}
+.divider::before,.divider::after{
+  content:'';flex:1;height:1px;background:var(--bdr);
+}
+
+#countLine{
+  text-align:right;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;color:var(--txt-d);
+  margin-bottom:26px;
+}
+#countLine strong{color:var(--acc)}
+
+/* ═══════════════════════════ GALLERY ════════════════════════ */
+.gallery{
+  columns:3;column-gap:18px;
+  padding-bottom:100px;
+}
+@media(max-width:1100px){.gallery{columns:2}}
+@media(max-width:640px){.gallery{columns:1}}
+
+/* ── Card ── */
+.card{
+  break-inside:avoid;
+  margin-bottom:18px;
+  background:var(--bg-card);
+  border:1px solid var(--bdr);
+  border-left:3px solid var(--bdr);
+  border-radius:6px;overflow:hidden;cursor:pointer;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+  opacity:0;transform:translateY(22px);
+}
+.card.vis{animation:cardIn .55s ease forwards}
+@keyframes cardIn{to{opacity:1;transform:translateY(0)}}
+
+.card:hover{
+  transform:translateY(-3px);
+  background:var(--bg-card-h);
+  box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 24px rgba(55,117,186,.1);
+}
+.card[data-c="gen"]:hover{border-left-color:var(--c-gen);border-color:rgba(55,117,186,.4)}
+.card[data-c="cli"]:hover{border-left-color:var(--c-cli);border-color:rgba(182,67,66,.4)}
+.card[data-c="ml"]:hover {border-left-color:var(--c-ml); border-color:rgba(66,148,158,.4)}
+.card[data-c="dst"]:hover{border-left-color:var(--c-dst);border-color:rgba(154,77,142,.4)}
+.card[data-c="mlt"]:hover{border-left-color:var(--c-mlt);border-color:rgba(224,123,57,.4)}
+
+/* Image wrapper */
+.cimg{
+  position:relative;overflow:hidden;
+  background:#f8f9fa;line-height:0;
+}
+.cimg img{
+  width:100%;height:auto;display:block;
+  transition:transform .4s ease;
+}
+.card:hover .cimg img{transform:scale(1.025)}
+
+/* Hover overlay */
+.cov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(4,6,20,.9) 0%,rgba(4,6,20,.35) 55%,transparent 100%);
+  opacity:0;transition:opacity .25s;
+  display:flex;align-items:flex-end;padding:14px;gap:8px;
+}
+.card:hover .cov{opacity:1}
+
+.cov-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 14px;border-radius:3px;text-decoration:none;
+  transition:all .18s;
+  transform:translateY(6px);transition:transform .25s ease .05s,background .18s,border-color .18s;
+}
+.card:hover .cov-btn{transform:translateY(0)}
+.cov-dl{background:var(--acc);color:#fff;border:1px solid var(--acc)}
+.cov-dl:hover{background:#4a8fd4}
+.cov-view{background:rgba(255,255,255,.08);color:var(--txt);border:1px solid rgba(255,255,255,.2)}
+.cov-view:hover{background:rgba(255,255,255,.16)}
+
+/* Card body */
+.cbody{padding:14px 16px 16px}
+.chead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px}
+.ctitle{font-size:13.5px;font-weight:600;color:var(--txt);line-height:1.3}
+
+.badge{
+  flex-shrink:0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;white-space:nowrap;
+}
+.bg-gen{background:rgba(55,117,186,.2);color:#6fa8e8;border:1px solid rgba(55,117,186,.3)}
+.bg-cli{background:rgba(182,67,66,.2);color:#e9a6a1;border:1px solid rgba(182,67,66,.3)}
+.bg-ml {background:rgba(66,148,158,.2);color:#8bcfcf;border:1px solid rgba(66,148,158,.3)}
+.bg-dst{background:rgba(154,77,142,.2);color:#ea84dd;border:1px solid rgba(154,77,142,.3)}
+.bg-mlt{background:rgba(224,123,57,.2);color:#ffd700;border:1px solid rgba(224,123,57,.3)}
+
+.ctype{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;color:var(--acc);
+  margin-bottom:5px;letter-spacing:.05em;
+}
+.cdesc{font-size:11.5px;color:var(--txt-m);line-height:1.62}
+.cmeta{
+  display:flex;align-items:center;gap:8px;
+  margin-top:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;color:var(--txt-d);letter-spacing:.04em;
+}
+.cmeta-dot{
+  width:5px;height:5px;border-radius:50%;flex-shrink:0;
+}
+.dot-gen{background:var(--c-gen)}.dot-cli{background:var(--c-cli)}
+.dot-ml{background:var(--c-ml)}.dot-dst{background:var(--c-dst)}.dot-mlt{background:var(--c-mlt)}
+
+/* ═══════════════════════════ LIGHTBOX ═══════════════════════ */
+#lb{
+  position:fixed;inset:0;z-index:500;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .28s ease;
+}
+#lb.open{opacity:1;pointer-events:all}
+
+#lb-bd{
+  position:absolute;inset:0;
+  background:rgba(3,5,14,.94);
+  backdrop-filter:blur(16px) saturate(0.6);
+}
+
+.lbox{
+  position:relative;z-index:1;
+  display:flex;flex-direction:column;align-items:center;
+  max-width:96vw;
+}
+
+/* Nav arrows */
+.lnav{
+  position:absolute;top:50%;
+  transform:translateY(-50%);
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(55,117,186,.1);
+  border:1px solid rgba(55,117,186,.3);
+  color:var(--txt);font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;z-index:2;
+  transition:all .18s;
+}
+.lnav:hover{background:rgba(55,117,186,.3);border-color:var(--acc)}
+#l-prev{left:-64px}
+#l-next{right:-64px}
+
+/* Toolbar */
+.ltb{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  width:100%;margin-bottom:14px;gap:16px;
+}
+.linfo .ltitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;color:var(--txt);
+}
+.linfo .ltype{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;color:var(--acc);
+  letter-spacing:.08em;margin-top:3px;
+}
+.lacts{display:flex;gap:8px;align-items:center;flex-shrink:0}
+
+.lbtn{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 14px;border-radius:3px;cursor:pointer;
+  border:1px solid rgba(55,117,186,.3);
+  background:rgba(55,117,186,.08);color:var(--txt);
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  transition:all .18s;
+}
+.lbtn:hover{background:rgba(55,117,186,.2);border-color:var(--acc)}
+.lbtn-close{
+  width:34px;height:34px;padding:0;
+  justify-content:center;font-size:16px;
+  background:rgba(182,67,66,.1);
+  border-color:rgba(182,67,66,.3);color:#e9a6a1;
+}
+.lbtn-close:hover{background:rgba(182,67,66,.3)}
+
+/* Image wrap */
+#l-imgw{
+  overflow:hidden;border-radius:5px;
+  border:1px solid var(--bdr);
+  background:#fff;cursor:crosshair;
+  max-height:calc(90vh - 120px);
+}
+#l-imgw img{
+  display:block;
+  max-width:88vw;
+  max-height:calc(90vh - 120px);
+  transition:transform .08s;
+  transform-origin:center center;
+  user-select:none;-webkit-user-drag:none;
+}
+
+#l-hint{
+  margin-top:10px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9.5px;color:var(--txt-d);letter-spacing:.08em;
+}
+
+/* counter */
+#l-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;color:var(--txt-d);margin-top:6px;letter-spacing:.06em;
+}
+
+/* ═══════════════════════════ FOOTER ═════════════════════════ */
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--bdr);
+  padding:50px 0 44px;
+  text-align:center;
+}
+.flogo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;font-weight:300;color:var(--txt-m);
+  margin-bottom:14px;
+}
+.flogo em{font-style:italic;color:var(--acc)}
+.ftxt{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;color:var(--txt-d);letter-spacing:.07em;
+  line-height:1.9;
+}
+.ftxt a{color:var(--acc);text-decoration:none}
+.ftxt a:hover{text-decoration:underline}
+.fpills{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+  margin-top:18px;
+}
+.fpill{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;
+  border:1px solid var(--bdr);color:var(--txt-d);
+}
+.fpill.a{border-color:rgba(55,117,186,.3);color:var(--acc)}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<!-- ═══ HERO ═══ -->
+<div class="W">
+  <section class="hero">
+    <p class="hero-eye">nature-figure · Claude Skill · Derived from Nature Machine Intelligence</p>
+    <h1 class="hero-title">Nature-Style<br><em>Figure Gallery</em></h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      Every rule is grounded in <em>primary sources</em> — production scripts from papers
+      published in <em>Nature Machine Intelligence</em> and top bioinformatics venues,
+      not general style intuition.
+    </p>
+    <div class="hero-chips">
+      <div class="chip"><span class="chip-n">22</span><span class="chip-l">Figures</span></div>
+      <div class="chip"><span class="chip-n">5</span><span class="chip-l">Categories</span></div>
+      <div class="chip"><span class="chip-n">SVG</span><span class="chip-l">Primary output</span></div>
+      <div class="chip"><span class="chip-n">300 dpi</span><span class="chip-l">PNG preview</span></div>
+      <div class="chip"><span class="chip-n">Arial</span><span class="chip-l">Nature typography</span></div>
+    </div>
+    <div class="hero-stem"></div>
+  </section>
+</div>
+
+<!-- ═══ FILTER ═══ -->
+<div class="W">
+  <div class="filter-wrap">
+    <div class="filter-bar" id="filterBar">
+      <button class="fb on" data-c="all">All  (22)</button>
+      <button class="fb" data-c="gen">Genomics &amp; Omics</button>
+      <button class="fb" data-c="cli">Clinical &amp; Survival</button>
+      <button class="fb" data-c="ml">Model Evaluation</button>
+      <button class="fb" data-c="dst">Distributions</button>
+      <button class="fb" data-c="mlt">Multi-panel</button>
+    </div>
+  </div>
+
+  <div class="divider">figure gallery</div>
+  <div id="countLine"><strong id="cnum">22</strong> figures displayed</div>
+
+  <!-- ═══ GALLERY ═══ -->
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="W">
+    <div class="flogo">nature<em>·skills</em></div>
+    <div class="ftxt">
+      Generated by <strong>nature-figure</strong> Claude skill &nbsp;·&nbsp;
+      Built from <a href="https://github.com/ChenLiu-1996/figures4papers">figures4papers</a>
+      (<em>Nature Machine Intelligence</em>)<br>
+      Primary output: editable <strong>.svg</strong> (text as &lt;text&gt; nodes, not paths) &nbsp;·&nbsp;
+      <strong>.png</strong> at 300 dpi &nbsp;·&nbsp; Font stack: Arial → DejaVu Sans → Liberation Sans
+    </div>
+    <div class="fpills">
+      <span class="fpill a">svg.fonttype = none</span>
+      <span class="fpill a">axes.spines.right = False</span>
+      <span class="fpill a">legend.frameon = False</span>
+      <span class="fpill">tight_layout(pad=2)</span>
+      <span class="fpill">semantic color palette</span>
+      <span class="fpill">dynamic y-axis limits</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lb">
+  <div id="lb-bd"></div>
+  <div class="lbox">
+    <button class="lnav" id="l-prev">&#8592;</button>
+    <button class="lnav" id="l-next">&#8594;</button>
+    <div class="ltb">
+      <div class="linfo">
+        <div class="ltitle" id="l-title"></div>
+        <div class="ltype"  id="l-type"></div>
+      </div>
+      <div class="lacts">
+        <a   class="lbtn" id="l-dlsvg" href="#" download>
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12L4 8h2.5V2h3v6H12L8 12zM2 14h12v-1.5H2z"/></svg>
+          SVG
+        </a>
+        <button class="lbtn" id="l-zi">+ Zoom</button>
+        <button class="lbtn" id="l-zo">− Zoom</button>
+        <button class="lbtn" id="l-rst">Reset</button>
+        <button class="lbtn lbtn-close" id="l-cls">×</button>
+      </div>
+    </div>
+    <div id="l-imgw"><img id="l-img" src="" alt=""></div>
+    <div id="l-hint">Scroll to zoom &nbsp;·&nbsp; Drag to pan &nbsp;·&nbsp; ← → to navigate &nbsp;·&nbsp; Esc to close</div>
+    <div id="l-counter"></div>
+  </div>
+</div>
+
+<script>
+// ─── Data ────────────────────────────────────────────────────────────────────
+const FIGS = [
+  { id:1,  file:'fig1_dose_response',     cat:'cli',
+    title:'Drug Dose–Response Curves',      type:'Sigmoidal Line Plot',
+    desc:'4-compound IC50 curves on log-scale concentration axis with error bars. Reference line at 50% inhibition marks EC50 crossings.' },
+  { id:2,  file:'fig2_gene_heatmap',       cat:'gen',
+    title:'Gene Expression Heatmap',        type:'Diverging Heatmap (RdBu_r)',
+    desc:'log2 fold-change for 10 oncogenes × 5 tumor subtypes. Auto-contrast cell annotations. BRCA1, TP53, MYC, EGFR highlighted.' },
+  { id:3,  file:'fig3_kaplan_meier',       cat:'cli',
+    title:'Kaplan-Meier Survival Curves',   type:'Step Function + 95% CI Band',
+    desc:'4-arm survival analysis with Wilson confidence bands and censoring tick marks. Median PFS ranges 12–30 months.' },
+  { id:4,  file:'fig4_volcano',            cat:'gen',
+    title:'Volcano Plot',                   type:'Log-Scale Scatter',
+    desc:'Differential expression of 1,200 genes. Up-regulated (red) and down-regulated (blue) genes beyond FC±1.0 and −log10 p > 2.' },
+  { id:5,  file:'fig5_pca',               cat:'gen',
+    title:'scRNA-seq PCA',                  type:'Cluster Scatter (1,700 cells)',
+    desc:'Principal component analysis across 5 annotated cell types. PC1 explains 34.2%, PC2 explains 18.7% of variance.' },
+  { id:6,  file:'fig6_multibar',           cat:'ml',
+    title:'Multi-Metric Model Comparison',  type:'Grouped Bar + Dedicated Legend',
+    desc:'4 methods across AUC-ROC, F1, Precision, Recall. In-bar value annotations. Separate legend panel per Nature convention.' },
+  { id:7,  file:'fig7_radar',              cat:'ml',
+    title:'8-Benchmark Radar Plot',         type:'Polar / Spider Chart',
+    desc:'3 models compared on 8 diagnostic benchmarks. Custom radial spokes, contour rings, independently normalized spoke scales.' },
+  { id:8,  file:'fig8_ablation',           cat:'ml',
+    title:'Data Augmentation Ablation',     type:'Horizontal Bar — Alpha Gradient',
+    desc:'6 pipeline configurations from no augmentation to full. Alpha encodes completeness. Baseline reference dashed line.' },
+  { id:9,  file:'fig9_training_curves',    cat:'ml',
+    title:'Training & Validation Curves',   type:'Multi-Run Lines + Uncertainty Band',
+    desc:'3 deep learning architectures over 5 independent seeds. Shaded ±1 std bands. Train and validation panels side-by-side.' },
+  { id:10, file:'fig10_multipanel',        cat:'mlt',
+    title:'Composite 6-Panel Figure',       type:'GridSpec Multi-panel',
+    desc:'Cytokine correlations · Biomarker response · TME dynamics · Pathway Z-scores · Bubble scatter landscape · Mutation log-bar.' },
+  { id:11, file:'fig11_violin_strip',      cat:'dst',
+    title:'MYC Expression — Cancer Subtypes', type:'Violin + Box + Jitter Strip',
+    desc:'MYC protein expression across 5 breast cancer subtypes (n=120/group). Significance brackets (** ****). IQR box overlay.' },
+  { id:12, file:'fig12_forest_plot',       cat:'cli',
+    title:'Meta-Analysis Forest Plot',      type:'Forest Plot (OR + 95% CI)',
+    desc:'7 independent cohorts (N=3,688 total) with inverse-variance weighted diamond meta-estimate. Weight column and CI lines.' },
+  { id:13, file:'fig13_stacked_bar',       cat:'cli',
+    title:'TME Cell Composition',           type:'100% Stacked Bar',
+    desc:'Tumor microenvironment fractions across 7 patient clusters. 7 cell types: tumor, CD8+/CD4+ T, B, NK, macrophage, fibroblast.' },
+  { id:14, file:'fig14_roc',               cat:'ml',
+    title:'ROC Curves — Cancer Detection',  type:'Multi-Model ROC (5 classifiers)',
+    desc:'Logistic regression → deep neural network. AUC from 0.801 to 0.951. Light fill under curves. Diagonal chance reference.' },
+  { id:15, file:'fig15_scatter_regression',cat:'cli',
+    title:'Biomarker Correlation',          type:'Scatter + Bootstrap Regression CI',
+    desc:'120 patients colored by tumor grade (I/II/III). Bootstrap 500-iteration 95% CI band. Pearson r annotation box.' },
+  { id:16, file:'fig16_lollipop',          cat:'gen',
+    title:'Somatic Mutation Frequency',     type:'Lollipop Chart',
+    desc:'15 genes ranked by mutation frequency (pan-cancer, n=3,688). Driver mutations in red, passenger mutations in blue.' },
+  { id:17, file:'fig17_pathway_enrichment',cat:'gen',
+    title:'GSEA Pathway Enrichment',        type:'Bubble Dot Plot',
+    desc:'12 HALLMARK pathways. NES on x-axis. Bubble size = gene set size (67–200 genes). Color = −log10(FDR). Up/down split.' },
+  { id:18, file:'fig18_waterfall',         cat:'cli',
+    title:'RECIST 1.1 Waterfall Plot',      type:'Waterfall Bar (55 patients)',
+    desc:'Best overall tumor response per patient. PR (blue, −30%), SD (green), PD (red, +20%). Threshold dashed lines.' },
+  { id:19, file:'fig19_manhattan',         cat:'gen',
+    title:'GWAS Manhattan Plot',            type:'Manhattan Scatter (chr 1–22)',
+    desc:'Genome-wide association study, n=95,000. Genome-wide significance (p=1e−8) and suggestive threshold (p=1e−6) lines.' },
+  { id:20, file:'fig20_ridge_plot',        cat:'dst',
+    title:'PD-1 Expression Distribution',   type:'Ridge / Joy Density',
+    desc:'PDCD1 expression across 7 scRNA-seq cell types. KDE curves with dashed median markers. Overlapping density stacks.' },
+  { id:21, file:'fig21_ecdf',              cat:'dst',
+    title:'PFS Cumulative Distribution',    type:'ECDF + KDE Histogram (4 arms)',
+    desc:'Progression-free survival ECDF with median reference line. Paired KDE density panel. Median PFS 8.2–18.7 months.' },
+  { id:22, file:'fig22_dot_heatmap',       cat:'mlt',
+    title:'Drug Sensitivity Screen',        type:'Dot-Matrix Heatmap (7×8)',
+    desc:'7 drugs × 8 cancer cell lines. IC50 labeled in each dot. Dual encoding: RdYlGn_r color = IC50; bubble size = efficacy.' },
+];
+
+const CAT_LABEL = {
+  all:'All', gen:'Genomics & Omics', cli:'Clinical & Survival',
+  ml:'Model Evaluation', dst:'Distributions', mlt:'Multi-panel'
+};
+const BADGE_CLS = { gen:'bg-gen', cli:'bg-cli', ml:'bg-ml', dst:'bg-dst', mlt:'bg-mlt' };
+const DOT_CLS   = { gen:'dot-gen', cli:'dot-cli', ml:'dot-ml', dst:'dot-dst', mlt:'dot-mlt' };
+
+// ─── Build cards ─────────────────────────────────────────────────────────────
+const gallery = document.getElementById('gallery');
+
+FIGS.forEach((f, i) => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.c = f.cat;
+  card.dataset.i = i;
+  card.style.animationDelay = (i * 0.038) + 's';
+
+  card.innerHTML = `
+    <div class="cimg">
+      <img src="figures/${f.file}.png" alt="${f.title}" loading="lazy">
+      <div class="cov">
+        <a class="cov-btn cov-dl" href="figures/${f.file}.svg" download onclick="event.stopPropagation()">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12L4 8h2.5V2h3v6H12L8 12zM2 14h12v-1.5H2z"/></svg>
+          Download SVG
+        </a>
+        <button class="cov-btn cov-view">Expand ↗</button>
+      </div>
+    </div>
+    <div class="cbody">
+      <div class="chead">
+        <div class="ctitle">${f.title}</div>
+        <span class="badge ${BADGE_CLS[f.cat]}">${CAT_LABEL[f.cat]}</span>
+      </div>
+      <div class="ctype">${f.type}</div>
+      <div class="cdesc">${f.desc}</div>
+      <div class="cmeta">
+        <span class="cmeta-dot ${DOT_CLS[f.cat]}"></span>
+        FIG.${String(f.id).padStart(2,'0')} &nbsp;·&nbsp; ${f.file}.svg / .png
+      </div>
+    </div>`;
+
+  card.addEventListener('click', () => openLb(i));
+  gallery.appendChild(card);
+});
+
+// ─── IntersectionObserver ─────────────────────────────────────────────────────
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } });
+}, { threshold:.04, rootMargin:'0px 0px -30px 0px' });
+document.querySelectorAll('.card').forEach(c => io.observe(c));
+
+// ─── Filter ───────────────────────────────────────────────────────────────────
+let activeCat = 'all';
+const cnum = document.getElementById('cnum');
+
+document.getElementById('filterBar').addEventListener('click', e => {
+  const btn = e.target.closest('.fb');
+  if (!btn) return;
+  activeCat = btn.dataset.c;
+  document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  let shown = 0;
+  document.querySelectorAll('.card').forEach(c => {
+    const match = activeCat === 'all' || c.dataset.c === activeCat;
+    c.style.display = match ? '' : 'none';
+    if (match) { if (!c.classList.contains('vis')) c.classList.add('vis'); shown++; }
+  });
+  cnum.textContent = shown;
+});
+
+// Update filter button labels with counts
+['gen','cli','ml','dst','mlt'].forEach(cat => {
+  const n = FIGS.filter(f => f.cat === cat).length;
+  const btn = document.querySelector(`.fb[data-c="${cat}"]`);
+  if (btn) btn.textContent = `${CAT_LABEL[cat]}  (${n})`;
+});
+
+// ─── Lightbox ────────────────────────────────────────────────────────────────
+let lbIdx = 0, lbScale = 1, lbX = 0, lbY = 0, panning = false, px0, py0;
+
+const lb     = document.getElementById('lb');
+const lImg   = document.getElementById('l-img');
+const lImgW  = document.getElementById('l-imgw');
+const lTitle = document.getElementById('l-title');
+const lType  = document.getElementById('l-type');
+const lDlSvg = document.getElementById('l-dlsvg');
+const lCtr   = document.getElementById('l-counter');
+
+function visibleFigs() {
+  return activeCat === 'all' ? FIGS : FIGS.filter(f => f.cat === activeCat);
+}
+
+function openLb(figArrayIdx) {
+  const vf = visibleFigs();
+  const fig = FIGS[figArrayIdx];
+  const vi  = vf.findIndex(f => f.id === fig.id);
+  lbIdx = vi >= 0 ? vi : 0;
+  showLb(lbIdx);
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function showLb(vi) {
+  const vf = visibleFigs();
+  if (!vf.length) return;
+  lbIdx = (vi + vf.length) % vf.length;
+  const f = vf[lbIdx];
+  lImg.src      = `figures/${f.file}.png`;
+  lTitle.textContent = f.title;
+  lType.textContent  = f.type;
+  lDlSvg.href        = `figures/${f.file}.svg`;
+  lDlSvg.download    = `${f.file}.svg`;
+  lCtr.textContent   = `${lbIdx + 1} / ${vf.length}`;
+  resetZoom();
+}
+
+function closeLb() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function resetZoom() { lbScale=1; lbX=0; lbY=0; applyT(); }
+function applyT() { lImg.style.transform = `scale(${lbScale}) translate(${lbX}px,${lbY}px)`; }
+
+document.getElementById('lb-bd').addEventListener('click', closeLb);
+document.getElementById('l-cls').addEventListener('click', closeLb);
+document.getElementById('l-prev').addEventListener('click', e => { e.stopPropagation(); showLb(lbIdx - 1); });
+document.getElementById('l-next').addEventListener('click', e => { e.stopPropagation(); showLb(lbIdx + 1); });
+document.getElementById('l-zi').addEventListener('click',  e => { e.stopPropagation(); lbScale = Math.min(lbScale * 1.35, 5); applyT(); });
+document.getElementById('l-zo').addEventListener('click',  e => { e.stopPropagation(); lbScale = Math.max(lbScale / 1.35, .5); if(lbScale<=1)resetZoom(); else applyT(); });
+document.getElementById('l-rst').addEventListener('click', e => { e.stopPropagation(); resetZoom(); });
+
+// Wheel zoom
+lImgW.addEventListener('wheel', e => {
+  e.preventDefault();
+  const d = e.deltaY > 0 ? .82 : 1.22;
+  lbScale = Math.min(Math.max(lbScale * d, .5), 5);
+  if (lbScale <= 1) resetZoom(); else applyT();
+}, { passive: false });
+
+// Drag pan
+lImgW.addEventListener('mousedown', e => {
+  if (lbScale <= 1) return;
+  panning = true; px0 = e.clientX - lbX; py0 = e.clientY - lbY;
+  lImgW.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', e => {
+  if (!panning) return;
+  lbX = e.clientX - px0; lbY = e.clientY - py0; applyT();
+});
+window.addEventListener('mouseup', () => {
+  panning = false;
+  lImgW.style.cursor = lbScale > 1 ? 'grab' : 'crosshair';
+});
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape')      closeLb();
+  if (e.key === 'ArrowLeft')   showLb(lbIdx - 1);
+  if (e.key === 'ArrowRight')  showLb(lbIdx + 1);
+  if (e.key === '+' || e.key==='=') { lbScale = Math.min(lbScale*1.2,5); applyT(); }
+  if (e.key === '-') { lbScale=Math.max(lbScale/1.2,.5); if(lbScale<=1)resetZoom(); else applyT(); }
+});
+
+// ─── Scroll progress ─────────────────────────────────────────────────────────
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+}, { passive: true });
+</script>
+</body>
+</html>
