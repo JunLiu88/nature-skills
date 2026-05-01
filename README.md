@@ -1,4 +1,5 @@
-# nature-skills
+# nature-skills 
+## Welcome everyone to submit PRs and co-create nature-skills.
 <img width="5750" height="6928" alt="combined_grid" src="https://github.com/user-attachments/assets/695b7721-a3eb-4bec-bfcf-d85b8d3d824a" />
 
 A growing collection of Claude skills for producing academic work at *Nature*-journal
