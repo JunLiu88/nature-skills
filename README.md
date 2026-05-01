@@ -34,6 +34,11 @@ included in the [`nature-figure` gallery](nature-figure/README.md#example-output
 material/mechanism, spatial imaging, in vivo efficacy, single-cell systems and
 perturbation validation.
 
+**Chart-type atlas** — The [`nature-figure` chart atlas](nature-figure/README.md#chart-type-atlas)
+classifies 10 supported chart families, including bar, line, heatmap, scatter/bubble,
+radar/polar, distribution, forest/interval, area/stacked, image-plate and network/matrix
+layouts.
+
 <p>
   <a href="nature-figure/assets/gallery/fig1-material-mechanism-rich.png">
     <img src="nature-figure/assets/gallery/fig1-material-mechanism-rich.png" width="19%" alt="Material design and physical validation example">

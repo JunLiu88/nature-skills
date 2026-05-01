@@ -28,6 +28,27 @@ editable outputs from source data and scripts.
 
 ---
 
+## Chart-type atlas
+
+The gallery below classifies the skill by chart family. Each preview is a dense 4 x 4
+atlas of small panels, designed to show the range of visual grammars that can be combined
+inside a larger *Nature*-style result figure.
+
+| Type | Preview | Common use |
+|------|---------|------------|
+| Bar charts | <a href="assets/chart-atlas/atlas-01-bar-charts.png"><img src="assets/chart-atlas/atlas-01-bar-charts.png" width="240" alt="Bar chart atlas"></a> | Group comparisons, signed deltas, grouped-within-grouped designs, stacked composition |
+| Line and longitudinal trends | <a href="assets/chart-atlas/atlas-02-line-trends.png"><img src="assets/chart-atlas/atlas-02-line-trends.png" width="240" alt="Line chart atlas"></a> | Time courses, uncertainty ribbons, intervention marks, individual traces |
+| Heatmaps | <a href="assets/chart-atlas/atlas-03-heatmaps.png"><img src="assets/chart-atlas/atlas-03-heatmaps.png" width="240" alt="Heatmap atlas"></a> | Z-score matrices, sequential abundance maps, annotated tables, clustered blocks |
+| Scatter and bubble plots | <a href="assets/chart-atlas/atlas-04-scatter-bubble.png"><img src="assets/chart-atlas/atlas-04-scatter-bubble.png" width="240" alt="Scatter and bubble atlas"></a> | Correlation, clusters, volcano-style tests, quadrant summaries, third-variable bubbles |
+| Radar and polar charts | <a href="assets/chart-atlas/atlas-05-radar-polar.png"><img src="assets/chart-atlas/atlas-05-radar-polar.png" width="240" alt="Radar and polar atlas"></a> | Multi-axis benchmarking, circular summaries, polar histograms, directional density |
+| Distribution plots | <a href="assets/chart-atlas/atlas-06-distributions.png"><img src="assets/chart-atlas/atlas-06-distributions.png" width="240" alt="Distribution plot atlas"></a> | Histograms, violins, boxes, ridgelines and sample-level spread |
+| Forest and interval plots | <a href="assets/chart-atlas/atlas-07-forest-interval.png"><img src="assets/chart-atlas/atlas-07-forest-interval.png" width="240" alt="Forest and interval atlas"></a> | Effect sizes, confidence intervals, point ranges, paired slope comparisons |
+| Area and stacked trends | <a href="assets/chart-atlas/atlas-08-area-stacked.png"><img src="assets/chart-atlas/atlas-08-area-stacked.png" width="240" alt="Area and stacked trend atlas"></a> | Filled trajectories, stacked shares, cumulative curves, stream-like compositions |
+| Image plates | <a href="assets/chart-atlas/atlas-09-image-plates.png"><img src="assets/chart-atlas/atlas-09-image-plates.png" width="240" alt="Image plate atlas"></a> | Microscopy channels, overlays, crops, scale bars and dark-panel layouts |
+| Network and matrix charts | <a href="assets/chart-atlas/atlas-10-network-matrix.png"><img src="assets/chart-atlas/atlas-10-network-matrix.png" width="240" alt="Network and matrix atlas"></a> | Bubble matrices, adjacency maps, node-link diagrams and bipartite interaction panels |
+
+---
+
 ## File structure
 
 ```
@@ -35,7 +56,8 @@ nature-figure/
 ├── SKILL.md                     ← skill trigger & overview (loaded by Claude automatically)
 ├── README.md                    ← this file
 ├── assets/
-│   └── gallery/                 ← README preview PNGs
+│   ├── gallery/                 ← result-figure preview PNGs
+│   └── chart-atlas/             ← chart-type taxonomy preview PNGs
 └── references/
     ├── api.md                   ← PALETTE constants, helper function signatures
     ├── design-theory.md         ← typography, color theory, layout, export policy
