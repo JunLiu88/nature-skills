@@ -49,6 +49,8 @@ When the user writes in Chinese, provides a Chinese manuscript note, or asks for
   and what metadata or representative data can still be public.
 - Separate data, code, materials, and protocols unless the journal asks for a combined
   availability section.
+- Keep this skill focused on availability and metadata. Do not rewrite methods, analyze
+  statistics, or polish the manuscript unless the user asks for those tasks separately.
 - Flag "available upon request" as weak unless there is a specific legal, ethical, commercial, or
   third-party restriction.
 

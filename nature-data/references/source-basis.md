@@ -24,7 +24,7 @@ audit the `nature-data` skill against real policy sources.
 ## Official sources
 
 - Springer Nature, Research data policy:
-  <https://www.springernature.com/gp/authors/research-data-policy%20>
+  <https://www.springernature.com/gp/journal-policies/15369670>
 - Springer Nature, Data availability statements:
   <https://www.springernature.com/gp/authors/research-data-policy/data-availability-statements>
 - Springer Nature, Data repository guidance:
@@ -32,6 +32,8 @@ audit the `nature-data` skill against real policy sources.
 - Springer Nature, Sensitive data:
   <https://www.springernature.com/gp/authors/research-data-policy/sensitive-data>
 - Nature Portfolio, Reporting standards and availability of data, materials, code and protocols:
+  <https://www.nature.com/nature-portfolio/editorial-policies/reporting-standards>
+- Example Nature Portfolio journal reporting standards page:
   <https://www.nature.com/npj2dmaterials/editorial-policies/reporting-standards>
 - Nature Research, Data availability statements and data citations policy FAQ:
   <https://www.nature.com/documents/nr-data-availability-statements-data-citations-faqs.pdf>
