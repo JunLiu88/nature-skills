@@ -1,15 +1,7 @@
 # nature-skills 
-## Welcome everyone to submit PRs and co-create nature-skills.
-
-A growing collection of Claude skills for producing academic work at *Nature*-journal
-standard — covering scientific figures, manuscript prose, and (in future releases) related
-tasks such as statistical reporting, peer-review responses, and methods writing.
-
-Every skill in this collection shares a common philosophy: rules are derived from
-**primary sources** (published *Nature* papers, journal author guidelines, and structured
-writing curricula), not from general style intuition.
-
-<img width="1146" height="1661" alt="0ae01290675fde783db88034649ddeca" src="https://github.com/user-attachments/assets/143b0f92-28cf-40cb-8276-692eefecd843" />
+| Overview | Community |
+| :--- | :---: |
+| **Welcome! Let's co-create nature-skills.**<br><br>A growing collection of Claude skills for producing academic work at *Nature*-journal standard.<br><br>Currently covering scientific figures, manuscript prose, and (in future releases) related tasks such as statistical reporting, peer‑review responses, and methods writing.<br><br>**Our philosophy** — Every skill in this collection shares a common philosophy: rules are derived from **primary sources** (published *Nature* papers, journal author guidelines, and structured writing curricula), not from general style intuition. | <img width="200" src="https://github.com/user-attachments/assets/143b0f92-28cf-40cb-8276-692eefecd843" /><br><br>*Scan to join the community* |
 
 ---
 
