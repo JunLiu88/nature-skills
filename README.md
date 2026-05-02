@@ -9,6 +9,8 @@ Every skill in this collection shares a common philosophy: rules are derived fro
 **primary sources** (published *Nature* papers, journal author guidelines, and structured
 writing curricula), not from general style intuition.
 
+<img width="1146" height="1661" alt="0ae01290675fde783db88034649ddeca" src="https://github.com/user-attachments/assets/143b0f92-28cf-40cb-8276-692eefecd843" />
+
 ---
 
 ## Skill index
