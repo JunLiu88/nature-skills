@@ -1,7 +1,7 @@
 # nature-skills 
 | Overview | Community |
 | :--- | :---: |
-| **Welcome! Let's co-create nature-skills.**<br><br>A growing collection of Claude skills for producing academic work at *Nature*-journal standard.<br><br>Currently covering scientific figures, manuscript prose, and (in future releases) related tasks such as statistical reporting, peer‑review responses, and methods writing.<br><br>**Our philosophy** — Every skill in this collection shares a common philosophy: rules are derived from **primary sources** (published *Nature* papers, journal author guidelines, and structured writing curricula), not from general style intuition. | <img width="200" src="https://github.com/user-attachments/assets/c7e93192-5a45-49dd-82b9-8a5fe90b8025" /><br><br>*The group is currently full. Please contact the administrator if you’d like to join.* |
+| **Welcome! Let's co-create nature-skills.**<br><br>A growing collection of Claude skills for producing academic work at *Nature*-journal standard.<br><br>Currently covering scientific figures, manuscript prose, data availability, and paper-to-presentation workflows; future releases may add related tasks such as statistical reporting, peer‑review responses, and methods writing.<br><br>**Our philosophy** — Every skill in this collection shares a common philosophy: rules are derived from **primary sources** (published *Nature* papers, journal author guidelines, and structured writing curricula), not from general style intuition. | <img width="200" src="https://github.com/user-attachments/assets/c7e93192-5a45-49dd-82b9-8a5fe90b8025" /><br><br>*The group is currently full. Please contact the administrator if you’d like to join.* |
 
 ---
 
@@ -12,6 +12,7 @@
 | [`nature-figure`](nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
 | [`nature-polishing`](nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
 | [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "数据可用性声明" |
+| [`nature-paper2ppt`](nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "文献汇报", "论文做成PPT" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
 
@@ -164,6 +165,37 @@ nature-data/
 
 ---
 
+## nature-paper2ppt
+
+**What it does** — Turns a scientific paper, preprint, PDF, article text, abstract,
+figure legends, or reading notes into a concise Chinese `.pptx` presentation for journal
+club, group meeting, lab meeting, paper sharing, or thesis seminar.
+
+The skill identifies the paper type and central argument, selects only figures and tables
+that support the evidence chain, writes Chinese slide titles, bullets, captions, takeaways
+and speaker notes, creates the actual PPTX deck, and runs lightweight package QA.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Narrative | Use the paper's scientific argument as the slide spine, not the manuscript section order |
+| Paper type | Classify the paper before choosing claim-first, problem-to-solution, workflow-to-validation, or evidence-map logic |
+| Figures | Use figures as evidence; crop or split dense panels rather than shrinking them into unreadable slots |
+| Output | Build a real `.pptx` as the primary deliverable, with Chinese text and speaker notes |
+| QA | Reopen or inspect the PPTX package, record slide count, embedded media, notes, and any rendering limits |
+| Integrity | Do not fabricate results, methods, numbers, datasets, mechanisms, or figure details |
+
+**Reference files**
+
+```
+nature-paper2ppt/
+├── README.md
+└── SKILL.md
+```
+
+---
+
 ## Shared design principles
 
 All skills in this collection adhere to the following:
@@ -174,7 +206,7 @@ All skills in this collection adhere to the following:
 3. **Section-aware** — academic writing and figures both require context-sensitivity;
    each skill applies different logic depending on which part of a paper is being handled.
 4. **Output-first** — every skill returns something immediately usable: copy-paste prose,
-   a `.svg` file, or a concrete recommendation. No intermediate planning documents.
+   a `.svg` file, a `.pptx` deck, or a concrete recommendation. No intermediate planning documents.
 5. **Extensible by design** — each skill is self-contained in its own directory; adding a
    new skill requires no changes to existing ones.
 
