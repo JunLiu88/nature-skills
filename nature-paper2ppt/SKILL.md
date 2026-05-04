@@ -1,6 +1,6 @@
 ---
 name: nature-paper2ppt
-description: Build a complete but efficient Nature-style Chinese PPTX presentation from a scientific paper, preprint, PDF, article text, abstract, figure legends, or reading notes. Use this skill whenever the user asks to make slides/PPT/PPTX for journal club, group meeting, paper sharing, thesis seminar, lab meeting, department report, or academic presentation from a research paper, not only medical papers. It identifies the paper type and argument, selects only the figures needed for the story, writes Chinese slide content and speaker notes, creates the actual .pptx deck, and performs lightweight verification without unnecessary rendering, exhaustive extraction, or extra files unless needed.
+description: Build a complete but efficient Nature-style Chinese PPTX presentation from a scientific paper, preprint, PDF, article text, abstract, figure legends, or reading notes. Use this skill whenever the user asks to make slides/PPT/PPTX for journal club, group meeting, paper sharing, thesis seminar, lab meeting, department report, or academic presentation from a research paper, not only medical papers. It identifies the paper type and argument, selects only the figures needed for the story, writes Chinese slide content and speaker notes, creates the actual .pptx deck, and performs lightweight verification with cross-platform Python tooling by default.
 ---
 
 # Purpose
@@ -50,6 +50,17 @@ Avoid by default:
 - generating long markdown scripts when the user only needs a deck,
 - rendering every slide when no reliable headless renderer is available.
 
+## Toolchain Policy
+Use a cross-platform Python-first stack unless the user explicitly asks for something else:
+- PyMuPDF for metadata, text extraction, page rendering, and page-level crops,
+- Pillow for figure crops, contact sheets, and lightweight preview images,
+- python-pptx for slide authoring and PPTX-safe editing,
+- zipfile plus a reopen pass through python-pptx for package validation.
+
+This stack must work on macOS, Linux, and Windows. Use `pathlib` paths, project-local output directories, and Office-safe fonts or theme fonts. Do not hardcode OS font paths or platform-specific file locations. If Python packages are missing, create a local virtual environment and install the minimum packages only when policy permits; do not install broad document suites just to finish a normal deck.
+
+Treat LibreOffice/soffice as optional, only when it is already available and a real rendered preview is worth the cost. Avoid Keynote, PowerPoint desktop automation, AppleScript, Preview, Finder, `open`, and any OS-specific font or path dependency in helper scripts. If a preview can be made from extracted slide objects or assets, prefer that over re-rendering the whole deck.
+
 Ask or document the tradeoff before doing expensive extras such as full supplementary-material processing, high-resolution recreation of many figures, full slide-by-slide rendered QA, or very long decks.
 
 # Accepted Inputs
@@ -64,6 +75,17 @@ The skill may receive:
 - a user-provided PPTX template
 
 Default output language is simplified Chinese unless the user requests otherwise. Preserve important technical terms, abbreviations, gene/protein names, model names, dataset names, equations, and statistical terms in English when needed.
+
+# Default Fast Path
+For a normal selectable-text paper PDF, run the shortest complete path:
+1. Extract metadata, abstract, headings, figure legends, and table captions with PyMuPDF.
+2. Identify the paper type, argument, and candidate figures before rendering high-resolution pages.
+3. Render low-resolution contact sheets only when figure locations are unclear.
+4. Render high-resolution images only for selected figure/table pages and crop only assets that will appear in the deck.
+5. Build the PPTX directly with python-pptx, using native tables/charts when values are explicit and figure crops when the original visual carries the evidence.
+6. Verify by reopening the PPTX and inspecting package structure; render slide previews only if a reliable cross-platform headless renderer is already available.
+
+OCR, full supplementary extraction, all-page high-resolution rendering, all-slide rendered QA, and long script files are opt-in or justified exceptions, not defaults.
 
 # Workflow
 
@@ -83,6 +105,7 @@ Extract, when available:
 - broader scientific, clinical, technical, environmental, or translational meaning
 
 Do not invent missing numbers, mechanisms, datasets, or figure details.
+Use a two-pass reading strategy: first capture metadata, abstract, headings, figure legends, and table captions; then read only the result and methods pages needed to support the slides.
 
 ## Step 2. Classify the paper before designing slides
 Identify the primary paper type. Choose the closest fit:
@@ -151,7 +174,8 @@ Prefer a few readable key panels over many unreadable full figures.
 
 ## Step 5. Extract and prepare figure assets
 When the source contains usable figures:
-- extract original images from the PDF or source package when possible,
+- extract original images from the PDF or source package when possible, but only for selected figures,
+- render high-resolution page images only for pages containing selected figures or tables,
 - crop relevant panels when full figures are too dense,
 - keep original data visuals unchanged,
 - save images under `output/assets/figures/`,
@@ -159,6 +183,8 @@ When the source contains usable figures:
 - record source page, figure number, panel, crop status, and intended slide in `output/asset_manifest.md`.
 
 For a standard 10-14 slide journal-club deck, usually select 4-8 figure/table assets. Add more only when they directly support distinct evidence slides.
+
+For tables and simple quantitative comparisons, prefer editable PPT-native tables/charts when values are explicit in the paper text or table. Use table screenshots only when recreating the table would risk transcription errors or when layout/formatting itself is the evidence.
 
 If extraction fails, use the best available fallback:
 - rendered page screenshot with careful crop,
@@ -227,13 +253,9 @@ Do not downscale a dense figure, table, or multi-panel graphic into a tiny slot 
 ## Step 7. Build the actual PPTX deck
 Create a real `.pptx` file as the primary deliverable.
 
-Use available presentation-building tools, such as:
-- the local Presentations plugin when available,
-- `python-pptx`,
-- LibreOffice/PowerPoint-compatible conversion tools,
-- a user-provided PPTX template if supplied.
+Use `python-pptx` as the default authoring tool for scientific paper decks because it creates editable PPTX files and runs on macOS, Linux, and Windows. Use a user-provided PPTX template if supplied. Use the local Presentations plugin or other PPTX tooling only when it is already available and clearly reduces work without violating the cross-platform policy.
 
-Use tools already available in the environment first. Install dependencies only when the PPTX cannot otherwise be created and the user has allowed installation or the environment policy permits it.
+Use tools already available in the environment first. Install only the minimum Python dependencies when the PPTX cannot otherwise be created and the environment policy permits it.
 
 The PPTX should:
 - use 16:9 widescreen layout by default,
@@ -268,7 +290,7 @@ If no reliable renderer is available, perform lightweight verification instead:
 - check embedded media count,
 - check speaker notes presence when notes were planned,
 - check obvious shape bounds if tooling supports it,
-- create a contact sheet of extracted figure assets only if helpful.
+- create a contact sheet from selected extracted assets only if helpful, not a full-deck screenshot set.
 
 Revise obvious defects. Document any remaining limitation in `output/qa_report.md`.
 
@@ -443,6 +465,8 @@ Slide-by-slide script:
 
 ## Optional: `output/rendered/`
 Rendered slide previews only when a reliable headless renderer is available or the user requests visual QA.
+
+Skip the optional outline/script/figure-plan files by default unless they materially reduce back-and-forth, help verify a complex paper, or are explicitly requested.
 
 # Quality Rules
 - Build the `.pptx` whenever tooling is available.
