@@ -103,7 +103,8 @@ python scripts/nature_citation.py \
   --text "PASTE MANUSCRIPT TEXT HERE" \
   --scope cns \
   --outdir /tmp/nature-citation \
-  --format enw
+  --format enw \
+  --with-artifacts
 ```
 
 Useful options:
@@ -141,8 +142,8 @@ experimental claim when primary articles are available.
 
 Default behavior:
 
-- write only one reference-manager file
-- do not generate HTML, TSV, JSON, or report files unless the user explicitly asks for them
+- write one reference-manager file
+- ALWAYS also generate review artifacts (HTML/TSV/JSON/report) — use `--with-artifacts`
 - support publication time filters with `--from-year` and `--to-year`
 
 Default file:
@@ -163,13 +164,22 @@ than fabricating them.
 
 ### 6. Optional review artifacts
 
-Only generate HTML/TSV/JSON/report artifacts when the user asks for them explicitly.
+Generate review artifacts (HTML/TSV/JSON/report) for every run — they are the primary way the
+user browses, filters, and selects candidates:
+
+- **ALWAYS use `--with-artifacts` when running the script.** The HTML browser is the most useful
+  output for the user to inspect and curate citations.
+- Always report the HTML visualization path prominently in your final answer (section 7).
+- Generate TSV/JSON/report alongside the HTML so the user has multiple views.
 
 ### 7. Report results
 
 Unless the user asks for a different format, return:
 
 ```text
+交互式引用浏览器
+- [absolute path to citation_visualization.html]  ← 在浏览器中打开此文件，可筛选/选择/下载引用
+
 检索范围
 - [Nature Portfolio / Science family / Cell Press / flagship only, plus date limits]
 
@@ -186,8 +196,9 @@ S001: [source segment]
 - [missing full-text check, contradictory evidence, no direct CNS literature, etc.]
 ```
 
-If no suitable CNS/Nature-series paper exists, say so plainly and suggest the best nearby options
-from non-CNS literature only if the user wants broader coverage.
+Put the HTML browser path FIRST in the report, above everything else, so the user can immediately
+open and browse candidates. If no suitable CNS/Nature-series paper exists, say so plainly and
+suggest the best nearby options from non-CNS literature only if the user wants broader coverage.
 
 ## Search quality rules
 
