@@ -2,7 +2,7 @@ name: Update star history
 
 on:
   schedule:
-    - cron: "17 0 * * *"
+    - cron: "17 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,8 +17,8 @@ jobs:
 
       - name: Update star history cache key
         run: |
-          today="$(date -u +%F)"
-          perl -0pi -e "s/cache_bust=[0-9]{4}-[0-9]{2}-[0-9]{2}/cache_bust=$today/g" README.md
+          hour_key="$(date -u +%Y-%m-%dT%H)"
+          perl -0pi -e "s/cache_bust=[0-9]{4}-[0-9]{2}-[0-9]{2}(?:T[0-9]{2})?/cache_bust=$hour_key/g" README.md
 
       - name: Commit README update
         run: |
