@@ -1,7 +1,7 @@
 ---
 name: nature-polishing
 description: Polish, restructure, or translate academic prose into Nature-leaning English using the paper-architecture and writing-strategy principles from Scientific English Writing & Communication, with phrase-level support from Academic Phrasebank. Use whenever the user asks to polish a manuscript paragraph, abstract, introduction, results, discussion, conclusion, title, methods section, or Chinese academic draft for publication-quality English.
-version: 5.0.0
+version: 5.0.2
 author: Yuan1z skill rebuilt from course notes plus Academic Phrasebank
 ---
 
@@ -22,6 +22,7 @@ The main strategy should come from the course notes in `Chapter1-Week1-7`. The r
 - Do not invent data, references, mechanisms, or novelty claims.
 - Do not let AI draft the paper's core scientific argument from scratch.
 - If the draft is Chinese or structurally rough, reconstruct the logic first and the prose second.
+- Avoid em dashes in polished output by default. Prefer commas, parentheses, or full stops. Use colons sparingly unless the user explicitly asks to preserve dash-based punctuation or wants a colon-led style.
 
 ## When to open extra files
 
@@ -247,11 +248,14 @@ Some journals require a strict abstract format. Follow the journal if it conflic
 
 ### Sentence rules
 
+- In polished prose, aim for sentences in the `10-30` word range.
 - Keep every sentence at `<= 30` words.
+- Do not produce full sentences under `10` words unless the user explicitly asks for terse style or the item is a heading, label, or fixed technical expression.
 - If any sentence exceeds `20` words, check whether it contains more than one main proposition.
 - Split overloaded sentences rather than polishing them cosmetically.
 - The last sentence of a paragraph often becomes the longest and weakest. Check it explicitly.
 - Prefer one core subject-verb proposition per sentence.
+- Do not use em dashes as prose punctuation in the polished version unless the user explicitly requests them. Rewrite with commas, parentheses, or shorter sentences instead. Use colons only when they add clear structural value.
 
 ### Paragraph rules
 
