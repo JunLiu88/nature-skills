@@ -17,6 +17,7 @@
 |-------|--------|---------|-----------------|
 | [`nature-figure`](nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
 | [`nature-polishing`](nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
+| [`nature-citation`](nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "分段引用", "支撑文献", "Zotero RDF" |
 | [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "数据可用性声明" |
 | [`nature-paper2ppt`](nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "文献汇报", "论文做成PPT" |
 
@@ -126,6 +127,46 @@ nature-polishing/
 ├── README.md
 └── SKILL.md    25 rules + 12-step workflow (loaded by Claude automatically)
 ```
+
+---
+
+## nature-citation
+
+**What it does** — Converts manuscript text or standalone claims into strict Nature / CNS-family
+citation candidates, then exports one reference-manager-ready file in `ENW`, `RIS`, or Zotero
+`RDF`. It can also generate an HTML screening page for year filtering, citation selection, and
+format-specific download.
+
+**Built from** — Crossref metadata retrieval, DOI record export, and journal-family filtering logic
+for Nature Portfolio, the AAAS Science family, and Cell Press.
+
+**Key rules enforced**
+
+| Domain | Core rule |
+|--------|-----------|
+| Scope filtering | Restrict to Nature Portfolio, Science family, Cell Press, or flagship-only journals |
+| Segmentation | Split long text into citable claim units with stable segment IDs |
+| Search discipline | Translate Chinese claims into English scientific concepts; prefer precision over volume |
+| Support grading | Distinguish strong, partial, background, limiting, and metadata-only support |
+| Export integrity | Do not fabricate DOI, pages, volume, issue, or journal metadata |
+| Download options | Support one-file export in `ENW`, `RIS`, or Zotero `RDF` |
+
+**Reference files**
+
+```text
+nature-citation/
+├── README.md
+├── SKILL.md
+├── references/
+│   ├── journal-scope.md
+│   ├── ris-endnote.md
+│   └── search-strategy.md
+└── scripts/
+    └── nature_citation.py
+```
+
+**Example workflow** — Segment a paragraph, search in-scope citations, review candidates in the
+HTML browser, then download only the selected records as `ENW`, `RIS`, or Zotero `RDF`.
 
 ---
 
