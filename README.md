@@ -15,11 +15,11 @@
 
 | Skill | Status | Purpose | Trigger keywords |
 |-------|--------|---------|-----------------|
-| [`nature-figure`](nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
-| [`nature-polishing`](nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
-| [`nature-citation`](nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
-| [`nature-data`](nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
-| [`nature-paper2ppt`](nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
+| [`nature-figure`](skills/nature-figure/README.md) | Stable | Publication-ready matplotlib figures | "Nature figure", "publication plot", "scientific figure" |
+| [`nature-polishing`](skills/nature-polishing/README.md) | Stable | Academic prose polishing to *Nature* style | "Nature style", "polish", "academic writing" |
+| [`nature-citation`](skills/nature-citation/README.md) | Beta | Strict Nature / CNS-family citation retrieval with ENW, RIS, and Zotero RDF export | "Nature citation", "CNS citation", "text citation", "supporting references", "Zotero RDF" |
+| [`nature-data`](skills/nature-data/README.md) | Draft | Nature Data Availability statements, repository plans, and FAIR checks | "Data Availability", "repository", "FAIR metadata", "data availability statement" |
+| [`nature-paper2ppt`](skills/nature-paper2ppt/README.md) | Beta | Chinese PPTX decks from scientific papers | "paper PPT", "journal club", "paper to slides", "paper presentation" |
 
 > **Adding a new skill?** Follow the [contribution guide](#adding-a-new-skill) at the bottom of this file.
 
@@ -32,16 +32,16 @@ visual standards: correct typography, semantic colour palette, editable SVG outp
 and non-redundant panel information architecture.
 
 **Example output gallery** — Five dense, simulated *Nature*-style result figures are
-included in the [`nature-figure` gallery](nature-figure/README.md#example-output-gallery):
+included in the [`nature-figure` gallery](skills/nature-figure/README.md#example-output-gallery):
 material/mechanism, spatial imaging, in vivo efficacy, single-cell systems and
 perturbation validation.
 
-**Chart-type atlas** — The [`nature-figure` chart atlas](nature-figure/README.md#chart-type-atlas)
+**Chart-type atlas** — The [`nature-figure` chart atlas](skills/nature-figure/README.md#chart-type-atlas)
 classifies 10 supported chart families, including bar, line, heatmap, scatter/bubble,
 radar/polar, distribution, forest/interval, area/stacked, image-plate and network/matrix
 layouts.
 
-| ![Material design and physical validation](nature-figure/assets/gallery/fig1-material-mechanism-rich.png) | ![Spatial imaging and uptake](nature-figure/assets/gallery/fig2-spatial-imaging-rich.png) | ![In vivo efficacy and tolerability](nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png) | ![Single-cell systems figure](nature-figure/assets/gallery/fig4-single-cell-systems-rich.png) | ![Perturbation validation](nature-figure/assets/gallery/fig5-validation-perturbation-rich.png) |
+| ![Material design and physical validation](skills/nature-figure/assets/gallery/fig1-material-mechanism-rich.png) | ![Spatial imaging and uptake](skills/nature-figure/assets/gallery/fig2-spatial-imaging-rich.png) | ![In vivo efficacy and tolerability](skills/nature-figure/assets/gallery/fig3-in-vivo-efficacy-rich.png) | ![Single-cell systems figure](skills/nature-figure/assets/gallery/fig4-single-cell-systems-rich.png) | ![Perturbation validation](skills/nature-figure/assets/gallery/fig5-validation-perturbation-rich.png) |
 |---|---|---|---|---|
 
 **Built from** — Production scripts from papers published in *Nature Machine Intelligence*
@@ -61,7 +61,7 @@ and top ML/bioinformatics venues ([figures4papers](https://github.com/ChenLiu-19
 **Reference files**
 
 ```
-nature-figure/
+skills/nature-figure/
 ├── README.md
 ├── SKILL.md
 └── references/
@@ -108,7 +108,7 @@ Proofreading → Plain-text output
 **Reference files**
 
 ```
-nature-polishing/
+skills/nature-polishing/
 ├── README.md
 └── SKILL.md    25 rules + 12-step workflow (loaded by Claude automatically)
 ```
@@ -139,7 +139,7 @@ for Nature Portfolio, the AAAS Science family, and Cell Press.
 **Reference files**
 
 ```text
-nature-citation/
+skills/nature-citation/
 ├── README.md
 ├── SKILL.md
 ├── references/
@@ -181,7 +181,7 @@ metadata conventions.
 **Reference files**
 
 ```
-nature-data/
+skills/nature-data/
 ├── README.md
 ├── SKILL.md
 ├── agents/
@@ -221,7 +221,7 @@ and speaker notes, creates the actual PPTX deck, and runs lightweight package QA
 **Reference files**
 
 ```
-nature-paper2ppt/
+skills/nature-paper2ppt/
 ├── README.md
 └── SKILL.md
 ```
